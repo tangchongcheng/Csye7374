@@ -1,4 +1,7 @@
 package edu.neu.csye7374.entity.item;
 
-public class Monitor {
+import javax.persistence.Entity;
+
+@Entity
+public class Monitor extends Item{
 }
