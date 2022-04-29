@@ -1,4 +1,4 @@
 package edu.neu.csye7374.entity.item;
 
-public class GameAdapter {
+public class Persona5 extends Item{
 }
