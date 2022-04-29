@@ -1,4 +1,4 @@
-package edu.neu.csye7374.dao.InventoryDao;
+package edu.neu.csye7374.dao;
 
 import edu.neu.csye7374.entity.item.Controller;
 import org.springframework.data.jpa.repository.JpaRepository;
