@@ -14,8 +14,7 @@ public class Order {
 
     private String orderedItems;
 
-    @ManyToOne
-    private Employee employee;
+    private int employeeId;
 
     private int status;
 

@@ -15,9 +15,6 @@ public class Employee {
     private String role;
     private String name;
     private int age;
-    @OneToMany
-    private List<Order> orderList;
-    @OneToOne
-    private Order currentOrder;
+    private int orderId;
     private int status;
 }
