@@ -1,5 +1,7 @@
 package edu.neu.csye7374.controller;
 import edu.neu.csye7374.entity.Employee;
+import edu.neu.csye7374.entity.Order;
+import edu.neu.csye7374.service.PersonnelService;
 import edu.neu.csye7374.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,9 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PersonnelService personnelService;
+
     @GetMapping("/")
     public String loginForm(Model model) {
         model.addAttribute("user", new Employee());
@@ -24,11 +29,14 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/")
+    @PostMapping("/user")
     public String loginForm(@ModelAttribute Employee user, Model model) {
-        if (userService.isAuthenticated(user)) {
-            model.addAttribute("user", user);
-            if (user.getRole().equalsIgnoreCase("Employee")) {
+        Employee target = userService.getByAuth(user);
+        if (target != null) {
+            model.addAttribute("user", target);
+            if (target.getRole().equalsIgnoreCase("Employee")) {
+                List<Order> orders = personnelService.getOrderByIds(target.getOrderIds());
+                model.addAttribute("orders", orders);
                 return "employee";
             }
             return "admin";
