@@ -53,11 +53,8 @@ public class InventoryService {
         if(Objects.isNull(employee) || Objects.isNull(order)) return;
 //        long intendedTime = System.currentTimeMillis();
 //        order.setIntendedTime(intendedTime);
-        order.setEmployee(employee);
-        List<Order> list= employee.getOrderList();
-        list.add(order);
-        employee.setOrderList(list);
-
+        order.setEmployeeId(employeeId);
+        employee.setOrderId(orderId);
         order.setStatus(1);
 
         orderDao.save(order);
@@ -65,6 +62,12 @@ public class InventoryService {
 
     }
 
+    public List<Order> getAllOrders(){
+        return orderDao.findAll();
+    }
+    public List<Order> getOrdersToDeliver(){
+        return orderDao.findAllByStatus(0);
+    }
 
     public CartFacade addControllerBatch(int num, CartFacade cartFacade){
         List<Controller> items = controllerDao.getAvailableItems(num);
