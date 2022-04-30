@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Apple Order</title>
+</head>
+<body>
+<div align="center">
+    <h1>Order Detail</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Items</th>
+            <th>Status</th>
+            <th>Created Time</th>
+            <th>Expected Arriving Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}">Order ID</td>
+            <td th:text="${order.orderedItems}">Order Items</td>
+            <td th:text="${order.status}">Status</td>
+            <td th:text="${order.createTime}">Created Time</td>
+            <td th:text="${order.arriveTime}">Expected Arriving Time</td>
+            <td>
+<!--                <a th:href="@{'/add/' + ${product.desc}}">Add</a>-->
+                <!--                &nbsp;&nbsp;&nbsp;-->
+                <!--                <a th:href="/@{'/delete/' + ${product.id}}">Delete</a>-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

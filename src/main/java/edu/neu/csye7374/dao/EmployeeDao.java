@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeDao extends JpaRepository<Employee, Integer> {
-    @Query(value = "select count(0) from employee where username = :username and password = :password and role = :role ", nativeQuery = true)
-    int findByAuth(String username, String password, String role);
+
+    @Query(value = "select * from employee where username = :username and password = :password and role = :role ", nativeQuery = true)
+    Employee getByAuth(String username, String password, String role);
 }

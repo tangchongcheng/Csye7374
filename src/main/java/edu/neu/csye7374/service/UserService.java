@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private EmployeeDao employeeDao;
-    public boolean isAuthenticated(Employee user) {
-        int count = employeeDao.findByAuth(user.getUsername(), user.getPassword(), user.getRole());
-        return count != 0;
+
+    public Employee getByAuth(Employee user) {
+        return employeeDao.getByAuth(user.getUsername(), user.getPassword(), user.getRole());
     }
 }
