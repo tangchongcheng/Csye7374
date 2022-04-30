@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>CSYE7374</title>
+</head>
+<body>
+<div align="center">
+    <h1>Login Page</h1>
+    <form action="#" th:action="@{/}" method="post" th:object="${user}">
+        <p>Id: <input type="text" th:field="*{username}" /></p>
+        <p>Message: <input type="text" th:field="*{password}" /></p>
+        <label>Role:</label>
+        <select th:field="*{role}">
+            <option th:each="p : ${roles}" th:value="${p}" th:text="${p}" />
+        </select>
+        <br/>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+</body>
+</html>

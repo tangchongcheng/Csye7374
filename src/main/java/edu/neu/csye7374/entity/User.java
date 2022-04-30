@@ -7,10 +7,12 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Employee {
+public class User {
     @Id
     private int Id;
-    private String name;
+    private String username;
+    private String password;
+    private String role;
     private int age;
     private int orderId;
     private int status;
