@@ -10,7 +10,9 @@ public class OrderBuilder {
     public OrderBuilder init(){
         this.order = new Order();
         order.setStatus(0);
-        order.setEmployee(null);
+        order.setEmployeeId(0);
+        long createTime = System.currentTimeMillis();
+        order.setCreateTime(createTime);
         return this;
     }
 
@@ -19,11 +21,6 @@ public class OrderBuilder {
         return this;
     }
 
-    public OrderBuilder createTime(){
-        long createTime = System.currentTimeMillis();
-        order.setCreateTime(createTime);
-        return this;
-    }
 
     public Order build(){
         return this.order;

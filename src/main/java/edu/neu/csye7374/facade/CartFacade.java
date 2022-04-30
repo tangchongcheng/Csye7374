@@ -17,7 +17,7 @@ public class CartFacade {
     public CartFacade(){
         cart = new Cart();
         orderBuilder = new OrderBuilder();
-        order = orderBuilder.init().setItems(cart).createTime().build();
+        order = orderBuilder.init().setItems(cart).build();
     }
 
     public void addController(Controller controller){
