@@ -9,8 +9,8 @@ public class OrderBuilder {
 
     public OrderBuilder init(){
         this.order = new Order();
-        order.setStatus(2);
-        order.setEmployeeId(0);
+        order.setStatus(0);
+        order.setEmployee(null);
         return this;
     }
 

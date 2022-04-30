@@ -1,9 +1,11 @@
 package edu.neu.csye7374.entity;
 
+import edu.neu.csye7374.entity.item.Item;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,7 +15,8 @@ public class Order {
 
     private String orderedItems;
 
-    private int employeeId;
+    @ManyToOne
+    private Employee employee;
 
     private int status;
 
