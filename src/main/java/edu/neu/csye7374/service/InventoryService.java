@@ -1,6 +1,8 @@
 package edu.neu.csye7374.service;
 
-import edu.neu.csye7374.dao.*;
+import edu.neu.csye7374.dao.CustomerDao;
+import edu.neu.csye7374.dao.EmployeeDao;
+import edu.neu.csye7374.dao.OrderDao;
 import edu.neu.csye7374.dao.itemDao.*;
 import edu.neu.csye7374.entity.CustomerOrder;
 import edu.neu.csye7374.entity.Employee;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class InventoryService {

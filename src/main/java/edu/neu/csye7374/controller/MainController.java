@@ -28,7 +28,10 @@ public class MainController {
     public String loginForm(@ModelAttribute Employee user, Model model) {
         if (userService.isAuthenticated(user)) {
             model.addAttribute("user", user);
-            return "user";
+            if (user.getRole().equalsIgnoreCase("Employee")) {
+                return "employee";
+            }
+            return "admin";
         }
         return "403";
     }

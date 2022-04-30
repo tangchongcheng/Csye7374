@@ -9,8 +9,8 @@
 <div align="center">
     <h1>Login Page</h1>
     <form action="#" th:action="@{/}" method="post" th:object="${user}">
-        <p>Id: <input type="text" th:field="*{username}" /></p>
-        <p>Message: <input type="text" th:field="*{password}" /></p>
+        <p>Username: <input type="text" th:field="*{username}" /></p>
+        <p>Password: <input type="password" th:field="*{password}" /></p>
         <label>Role:</label>
         <select th:field="*{role}">
             <option th:each="p : ${roles}" th:value="${p}" th:text="${p}" />
