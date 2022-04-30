@@ -13,7 +13,6 @@ public class Employee {
     private String username;
     private String password;
     private String role;
-    private int id;
     private String name;
     private int age;
     @OneToMany

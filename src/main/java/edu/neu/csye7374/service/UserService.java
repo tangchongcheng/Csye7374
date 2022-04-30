@@ -10,7 +10,7 @@ public class UserService {
     @Autowired
     private EmployeeDao employeeDao;
     public boolean isAuthenticated(Employee user) {
-        employeeDao.findByAuth(user.getUsername(), user.getPassword(), user.getRole());
-        return true;
+        int count = employeeDao.findByAuth(user.getUsername(), user.getPassword(), user.getRole());
+        return count != 0;
     }
 }
