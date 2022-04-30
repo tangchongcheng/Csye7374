@@ -47,7 +47,7 @@ public class InventoryService {
         return cartFacade.getOrder();
     }
 
-    public void distributeOrderToEmployee(int orderId, int employeeId){
+    public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
         Employee employee = employeeDao.findById(employeeId).orElse(null);
         Order order = orderDao.findById(orderId).orElse(null);
         if(Objects.isNull(employee) || Objects.isNull(order)) return;
@@ -65,6 +65,7 @@ public class InventoryService {
     public List<Order> getAllOrders(){
         return orderDao.findAll();
     }
+
     public List<Order> getOrdersToDeliver(){
         return orderDao.findAllByStatus(0);
     }
