@@ -10,9 +10,7 @@ import javax.persistence.Id;
 public class CustomerOrder {
     @Id
     private int id;
-
     private String name;
-
     private int controllerNo;
     private int monitorNo;
     private int playstationNo;

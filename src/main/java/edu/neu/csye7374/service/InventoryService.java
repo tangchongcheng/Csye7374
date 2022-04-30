@@ -54,7 +54,9 @@ public class InventoryService {
 //        long intendedTime = System.currentTimeMillis();
 //        order.setIntendedTime(intendedTime);
         order.setEmployeeId(employeeId);
-        employee.setOrderId(orderId);
+        String orders = employee.getOrderIds();
+        orders = orders + orderId + ",";
+        employee.setOrderIds(orders);
         order.setStatus(1);
 
         orderDao.save(order);
