@@ -9,6 +9,10 @@ import java.util.List;
 @Data
 public class Employee {
     @Id
+    private int Id;
+    private String username;
+    private String password;
+    private String role;
     private int id;
     private String name;
     private int age;
