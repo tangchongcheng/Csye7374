@@ -15,6 +15,6 @@ public class Employee {
     private String role;
     private String name;
     private int age;
-    private int orderId;
+    private String orderIds;
     private int status;
 }
