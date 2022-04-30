@@ -2,18 +2,23 @@ package edu.neu.csye7374.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
-public class User {
+public class Employee {
     @Id
     private int Id;
     private String username;
     private String password;
     private String role;
+    private int id;
+    private String name;
     private int age;
-    private int orderId;
+    @OneToMany
+    private List<Order> orderList;
+    @OneToOne
+    private Order currentOrder;
     private int status;
 }

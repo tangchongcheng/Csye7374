@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ElderRing extends Item {
+public class EldenRing extends Item {
     @Id
     private int id;
 }
