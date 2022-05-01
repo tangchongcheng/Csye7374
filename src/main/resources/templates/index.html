@@ -8,7 +8,7 @@
 <body>
 <div align="center">
     <h1>Login Page</h1>
-    <form action="#" th:action="@{/}" method="post" th:object="${user}">
+    <form action="#" th:action="@{/user}" method="post" th:object="${user}">
         <p>Username: <input type="text" th:field="*{username}" /></p>
         <p>Password: <input type="password" th:field="*{password}" /></p>
         <label>Role:</label>
