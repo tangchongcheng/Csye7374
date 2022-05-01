@@ -30,17 +30,19 @@
             <td th:text="${PSOrder.status}">Status</td>
             <td th:text="${PSOrder.createTime}">Created Time</td>
             <td th:text="${PSOrder.arriveTime}">Expected Arriving Time</td>
-            <td>
-                <form th:action="@{/distribute}" method="post" th:object="${PSOrder}">
-                    <input type="submit" value="Distribute">
-                </form>
-            </td>
             <!--                <a th:href="@{'/add/' + ${product.desc}}">Add</a>-->
             <!--                &nbsp;&nbsp;&nbsp;-->
             <!--                <a th:href="/@{'/delete/' + ${product.id}}">Delete</a>-->
-        </tr>
         </tbody>
     </table>
+    <form th:action="@{/choose}" method="post" th:object="${Employee}">
+        <select th:field="*{id}">
+            <option th:each="p : ${AvailableEmployeeList}" th:value="${p}" th:text="${p}" />
+        </select>
+        <input th:field="*{orderToDo}" type="hidden" th:value="${PSOrder.orderId}">
+        <br/>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
 </div>
 </body>
 </html>
