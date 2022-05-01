@@ -36,8 +36,8 @@ public class InventoryService {
     EmployeeDao employeeDao;
 
 
-    public PSOrder createOrderFromCustomerOrder(String customerName){
-        CustomerOrder customerOrder = customerDao.findCustomerOrderByName(customerName);
+    public PSOrder createOrderFromCustomerOrder(Integer customerOrderId){
+        CustomerOrder customerOrder = customerDao.findById(customerOrderId).orElse(null);
         if(Objects.isNull(customerOrder)) return null;
         CartFacade cartFacade = new CartFacade();
         cartFacade = addControllerBatch(customerOrder.getControllerNo(),cartFacade);
