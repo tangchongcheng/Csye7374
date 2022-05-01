@@ -11,6 +11,7 @@ import edu.neu.csye7374.entity.item.*;
 import edu.neu.csye7374.facade.CartFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,14 +49,13 @@ public class InventoryService {
     }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
-        Employee employee = employeeDao.findById(employeeId).orElse(null);
-        PSOrder PSOrder = orderDao.findById(orderId).orElse(null);
-        if(Objects.isNull(employee) || Objects.isNull(PSOrder)) return;
+        Employee employee = employeeDao.getById(employeeId);
+        PSOrder PSOrder = orderDao.getById(orderId);
 //        long intendedTime = System.currentTimeMillis();
 //        PSOrder.setIntendedTime(intendedTime);
         PSOrder.setEmployeeId(employeeId);
         String orderIds = employee.getOrderIds();
-        if (orderIds == null) {
+        if (StringUtils.isEmpty(orderIds)) {
             orderIds = "" + orderId;
         } else {
             orderIds = orderIds + "," + orderId;
@@ -70,6 +70,9 @@ public class InventoryService {
 
     public List<PSOrder> getAllOrders(){
         return orderDao.findAll();
+    }
+    public PSOrder getOrderById(Integer id){
+        return orderDao.getById(id);
     }
 
     public List<PSOrder> getOrdersToDeliver(){
