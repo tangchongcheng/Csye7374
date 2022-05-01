@@ -3,11 +3,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>All Orders</title>
+    <title>To Do Orders</title>
 </head>
 <body>
 <div align="center">
-    <h1>All Orders</h1>
+    <h1>To Do Orders</h1>
     <br/><br/>
     <table border="1" cellpadding="10">
         <thead>
@@ -35,14 +35,15 @@
             <!--                <a th:href="/@{'/delete/' + ${product.id}}">Delete</a>-->
         </tbody>
     </table>
-    <form th:action="@{/choose}" method="post" th:object="${Employee}">
+    <form th:action="@{'/choose/' + ${orderId}}" method="post" th:object="${employee}">
+        <label>Choose Employee To Deliver</label>
         <select th:field="*{id}">
-            <option th:each="p : ${AvailableEmployeeList}" th:value="${p}" th:text="${p}" />
+            <option th:each="p : ${AvailableEmployeeList}" th:value="${p}" th:text="${p}"></option>
         </select>
-        <input th:field="*{orderToDo}" type="hidden" th:value="${PSOrder.orderId}">
         <br/>
         <p><input type="submit" value="Submit" /></p>
     </form>
 </div>
+<a href="/">Sign Out</a>
 </body>
 </html>

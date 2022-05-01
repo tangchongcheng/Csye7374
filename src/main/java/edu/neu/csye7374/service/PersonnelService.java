@@ -37,6 +37,7 @@ public class PersonnelService {
         List<Employee> employees = employeeDao.findAll();
         List<Integer> result = new ArrayList<>();
         for(Employee e:employees){
+            if(e.getStatus()==0)
             result.add(e.getId());
         }
         return result;

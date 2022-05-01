@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -22,21 +23,32 @@ public class InventoryController {
     PersonnelService personnelService;
 
 
-    @PostMapping("/distribute")
-    public String distributeOrders(Model model) {
-
-        model.addAttribute("Employee", new Employee());
+    @GetMapping("/distribute/{orderId}")
+    public String updateOrderStatus(@PathVariable(name = "orderId") int orderId, Model model) {
+        List<PSOrder> orders = new ArrayList<>();
+        orders.add(inventoryService.getOrderById(orderId));
+        model.addAttribute("PSOrderList",orders);
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("employee", new Employee());
         List<Integer> employeeList =  personnelService.getAvailableEmployeeId();
         model.addAttribute("AvailableEmployeeList", employeeList);
         return "distribute";
     }
 
-    @PostMapping("/choose")
-    public String chooseDelivery(@ModelAttribute Employee Employee, Model model){
-        Integer orderId = Employee.getOrderToDo();
-        Integer employeeId = Employee.getId();
+    @PostMapping("/choose/{orderId}")
+    public String chooseDelivery(@ModelAttribute Employee employee,@PathVariable(name = "orderId") int orderId, Model model){
+        System.out.println(orderId);
+        Integer employeeId = employee.getId();
+        System.out.println(employeeId);
         inventoryService.distributeOrderToEmployee(orderId, employeeId);
         return "success";
+    }
+
+    @GetMapping("/back")
+    public String goBack(Model model){
+        List<PSOrder> PSOrderList = inventoryService.getAllOrders();
+        model.addAttribute("PSOrderList", PSOrderList);
+        return "admin";
     }
 
 }

@@ -17,6 +17,4 @@ public class Employee {
     private int age;
     private String orderIds;
     private int status;
-    @Transient
-    private int orderToDo;
 }
