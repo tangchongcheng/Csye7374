@@ -15,23 +15,18 @@ public class InventoryController {
     @Autowired
     InventoryService inventoryService;
 
-    @GetMapping("/admin")
-    public String inventoryHomePage(Model model) {
-        List<PSOrder> PSOrderList = inventoryService.getAllOrders();
-        model.addAttribute("orderList", PSOrderList);
-        return "admin";
-    }
+
 
     @GetMapping("/distribute")
     public String distributePage(Model model) {
         List<PSOrder> ordersToDeliver = inventoryService.getOrdersToDeliver();
-        model.addAttribute("ordersToDeliver", ordersToDeliver);
+        model.addAttribute("PSOrdersToDeliver", ordersToDeliver);
         return "distribute";
     }
 
     @PostMapping("/distribute")
     public String distributeOrders(Model model) {
-        Integer orderId = (Integer) model.getAttribute("orderId");
+        Integer orderId = (Integer) model.getAttribute("PSOrderId");
         Integer employeeId = (Integer) model.getAttribute("employeeId");
         inventoryService.distributeOrderToEmployee(orderId, employeeId);
         return "admin";

@@ -47,8 +47,6 @@ public class CartFacade {
     }
 
     public PSOrder getPSOrder(){
-        String items = PSOrder.getOrderedItems();
-        if(!items.equals("")) PSOrder.setOrderedItems(items.substring(0,items.length()-1));
         return PSOrder;
     }
 }

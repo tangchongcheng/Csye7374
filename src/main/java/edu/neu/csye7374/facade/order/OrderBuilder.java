@@ -18,12 +18,15 @@ public class OrderBuilder {
 
     public OrderBuilder setItems(CartAPI cart){
         PSOrder.setOrderedItems(cart.getCode());
+        PSOrder.setPrice(cart.getCost());
         return this;
     }
 
 
     public PSOrder build(){
-        return this.PSOrder;
+        String items = PSOrder.getOrderedItems();
+        if(!items.equals("")) PSOrder.setOrderedItems(items.substring(0,items.length()-1));
+        return PSOrder;
     }
 
 }

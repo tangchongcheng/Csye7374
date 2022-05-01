@@ -1,6 +1,7 @@
 package edu.neu.csye7374.controller;
 import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
+import edu.neu.csye7374.service.InventoryService;
 import edu.neu.csye7374.service.PersonnelService;
 import edu.neu.csye7374.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class MainController {
     @Autowired
     private PersonnelService personnelService;
 
+    @Autowired
+    private InventoryService inventoryService;
+
     @GetMapping("/")
     public String loginForm(Model model) {
         model.addAttribute("user", new Employee());
@@ -38,8 +42,12 @@ public class MainController {
                 List<PSOrder> PSOrders = personnelService.getOrderByIds(target.getOrderIds());
                 model.addAttribute("PSOrders", PSOrders);
                 return "employee";
+            }else{
+                List<PSOrder> PSOrderList = inventoryService.getAllOrders();
+                model.addAttribute("PSOrderList", PSOrderList);
+                return "admin";
             }
-            return "admin";
+
         }
         return "403";
     }
