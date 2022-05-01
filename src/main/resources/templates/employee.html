@@ -20,12 +20,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="order : ${orders}">
-            <td th:text="${order.orderId}">Order ID</td>
-            <td th:text="${order.orderedItems}">Order Items</td>
-            <td th:text="${order.status}">Status</td>
-            <td th:text="${order.createTime}">Created Time</td>
-            <td th:text="${order.arriveTime}">Expected Arriving Time</td>
+        <tr th:each="PSOrder : ${PSOrders}">
+            <td th:text="${PSOrder.orderId}">Order ID</td>
+            <td th:text="${PSOrder.orderedItems}">Order Items</td>
+            <td th:text="${PSOrder.status}">Status</td>
+            <td th:text="${PSOrder.createTime}">Created Time</td>
+            <td th:text="${PSOrder.arriveTime}">Expected Arriving Time</td>
             <td>
 <!--                <a th:href="@{'/add/' + ${product.desc}}">Add</a>-->
                 <!--                &nbsp;&nbsp;&nbsp;-->
