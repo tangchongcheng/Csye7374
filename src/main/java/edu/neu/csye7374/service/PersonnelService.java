@@ -16,9 +16,15 @@ public class PersonnelService {
         String[] ids = orderIds.split(",");
         List<PSOrder> res = new ArrayList<>();
         for (String id : ids) {
-            PSOrder PSOrder = orderDao.getById(Integer.valueOf(id));
-            res.add(PSOrder);
+            PSOrder psOrder = orderDao.getById(Integer.valueOf(id));
+            res.add(psOrder);
         }
         return res;
+    }
+
+    public PSOrder updateOrderById(int orderId) {
+        PSOrder psOrder = orderDao.getById(orderId);
+        psOrder.setStatus(2);
+        return orderDao.save(psOrder);
     }
 }

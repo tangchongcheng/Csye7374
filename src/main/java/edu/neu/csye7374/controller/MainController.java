@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,14 +30,15 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/")
-    public String loginForm(@ModelAttribute Employee user, Model model) {
+    @PostMapping("/user")
+    public String loginForm(@ModelAttribute Employee user, Model model, HttpServletRequest request) {
         Employee target = userService.getByAuth(user);
         if (target != null) {
             model.addAttribute("user", target);
+            request.getSession().setAttribute("user", target);
             if (target.getRole().equalsIgnoreCase("Employee")) {
-                List<PSOrder> PSOrders = personnelService.getOrderByIds(target.getOrderIds());
-                model.addAttribute("PSOrders", PSOrders);
+                List<PSOrder> psOrders = personnelService.getOrderByIds(target.getOrderIds());
+                model.addAttribute("psOrders", psOrders);
                 return "employee";
             }
             return "admin";
