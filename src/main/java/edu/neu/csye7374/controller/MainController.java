@@ -29,7 +29,7 @@ public class MainController {
         return "index";
     }
 
-    @PostMapping("/user")
+    @PostMapping("/")
     public String loginForm(@ModelAttribute Employee user, Model model) {
         Employee target = userService.getByAuth(user);
         if (target != null) {

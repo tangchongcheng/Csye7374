@@ -46,7 +46,7 @@ public class CartFacade {
         PSOrder = orderBuilder.setItems(cart).build();
     }
 
-    public PSOrder getOrder(){
+    public PSOrder getPSOrder(){
         String items = PSOrder.getOrderedItems();
         if(!items.equals("")) PSOrder.setOrderedItems(items.substring(0,items.length()-1));
         return PSOrder;

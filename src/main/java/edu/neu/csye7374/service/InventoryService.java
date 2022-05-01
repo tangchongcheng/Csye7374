@@ -44,7 +44,7 @@ public class InventoryService {
         cartFacade = addPlayStationBatch(customerOrder.getPlaystationNo(), cartFacade);
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
-        return cartFacade.getOrder();
+        return cartFacade.getPSOrder();
     }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
@@ -52,11 +52,15 @@ public class InventoryService {
         PSOrder PSOrder = orderDao.findById(orderId).orElse(null);
         if(Objects.isNull(employee) || Objects.isNull(PSOrder)) return;
 //        long intendedTime = System.currentTimeMillis();
-//        order.setIntendedTime(intendedTime);
+//        PSOrder.setIntendedTime(intendedTime);
         PSOrder.setEmployeeId(employeeId);
-        String PSOrders = employee.getOrderIds();
-        PSOrders = PSOrders + orderId + ",";
-        employee.setOrderIds(PSOrders);
+        String orderIds = employee.getOrderIds();
+        if (orderIds == null) {
+            orderIds = "" + orderId;
+        } else {
+            orderIds = orderIds + "," + orderId;
+        }
+        employee.setOrderIds(orderIds);
         PSOrder.setStatus(1);
 
         orderDao.save(PSOrder);
