@@ -6,7 +6,7 @@ import edu.neu.csye7374.dao.OrderDao;
 import edu.neu.csye7374.dao.itemDao.*;
 import edu.neu.csye7374.entity.CustomerOrder;
 import edu.neu.csye7374.entity.Employee;
-import edu.neu.csye7374.entity.Order;
+import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.entity.item.*;
 import edu.neu.csye7374.facade.CartFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class InventoryService {
     EmployeeDao employeeDao;
 
 
-    public Order createOrderFromCustomerOrder(String customerName){
+    public PSOrder createOrderFromCustomerOrder(String customerName){
         CustomerOrder customerOrder = customerDao.findCustomerOrderByName(customerName);
         if(Objects.isNull(customerOrder)) return null;
         CartFacade cartFacade = new CartFacade();
@@ -44,31 +44,35 @@ public class InventoryService {
         cartFacade = addPlayStationBatch(customerOrder.getPlaystationNo(), cartFacade);
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
-        return cartFacade.getOrder();
+        return cartFacade.getPSOrder();
     }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
         Employee employee = employeeDao.findById(employeeId).orElse(null);
-        Order order = orderDao.findById(orderId).orElse(null);
-        if(Objects.isNull(employee) || Objects.isNull(order)) return;
+        PSOrder PSOrder = orderDao.findById(orderId).orElse(null);
+        if(Objects.isNull(employee) || Objects.isNull(PSOrder)) return;
 //        long intendedTime = System.currentTimeMillis();
-//        order.setIntendedTime(intendedTime);
-        order.setEmployeeId(employeeId);
-        String orders = employee.getOrderIds();
-        orders = orders + orderId + ",";
-        employee.setOrderIds(orders);
-        order.setStatus(1);
+//        PSOrder.setIntendedTime(intendedTime);
+        PSOrder.setEmployeeId(employeeId);
+        String orderIds = employee.getOrderIds();
+        if (orderIds == null) {
+            orderIds = "" + orderId;
+        } else {
+            orderIds = orderIds + "," + orderId;
+        }
+        employee.setOrderIds(orderIds);
+        PSOrder.setStatus(1);
 
-        orderDao.save(order);
+        orderDao.save(PSOrder);
         employeeDao.save(employee);
 
     }
 
-    public List<Order> getAllOrders(){
+    public List<PSOrder> getAllOrders(){
         return orderDao.findAll();
     }
 
-    public List<Order> getOrdersToDeliver(){
+    public List<PSOrder> getOrdersToDeliver(){
         return orderDao.findAllByStatus(0);
     }
 

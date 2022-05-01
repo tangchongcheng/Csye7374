@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data
-public class Order {
+public class PSOrder {
     @Id
     private int orderId;
 
