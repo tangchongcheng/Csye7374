@@ -17,22 +17,26 @@
             <th>Status</th>
             <th>Created Time</th>
             <th>Expected Arriving Time</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="PSOrder : ${PSOrders}">
-            <td th:text="${PSOrder.orderId}">Order ID</td>
-            <td th:text="${PSOrder.orderedItems}">Order Items</td>
-            <td th:text="${PSOrder.status}">Status</td>
-            <td th:text="${PSOrder.createTime}">Created Time</td>
-            <td th:text="${PSOrder.arriveTime}">Expected Arriving Time</td>
-<!--                <a th:href="@{'/add/' + ${product.desc}}">Add</a>-->
+        <tr th:each="psOrder : ${psOrders}">
+            <td th:text="${psOrder.orderId}">Order ID</td>
+            <td th:text="${psOrder.orderedItems}">Order Items</td>
+            <td  th:if="${psOrder.status} == 1">Delivering</td>
+            <td  th:if="${psOrder.status} == 2">Delivered</td>
+            <td th:text="${#dates.format(psOrder.createTime, 'MM-dd-yyyy HH:mm:ss')}">Created Time</td>
+            <td th:text="${#dates.format(psOrder.arriveTime, 'MM-dd-yyyy HH:mm:ss')}">Expected Arriving Time</td>
+            <td>
+            <a th:href="@{'/delivered/' + ${psOrder.orderId}}">Mark as Delivered</a>
+            </td>
                 <!--                &nbsp;&nbsp;&nbsp;-->
                 <!--                <a th:href="/@{'/delete/' + ${product.id}}">Delete</a>-->
-            </td>
         </tr>
         </tbody>
     </table>
+    <a href="/signout">Sign Out</a>
 </div>
 </body>
 </html>
