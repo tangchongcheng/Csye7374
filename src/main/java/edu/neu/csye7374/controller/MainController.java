@@ -1,4 +1,5 @@
 package edu.neu.csye7374.controller;
+import edu.neu.csye7374.entity.CustomerOrder;
 import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.service.InventoryService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,6 +37,28 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/user")
+    public String getUser(Model model, HttpSession httpSession) {
+        Employee user = (Employee) httpSession.getAttribute("user");
+        if (user != null) {
+            model.addAttribute("user", user);
+            if (user.getRole().equalsIgnoreCase("Employee")) {
+                List<PSOrder> psOrders = personnelService.getOrderByIds(user.getOrderIds());
+                model.addAttribute("psOrders", psOrders);
+                return "employee";
+            }
+            if (user.getRole().equalsIgnoreCase("Admin")) {
+                List<PSOrder> PSOrderList = inventoryService.getAllOrders();
+                model.addAttribute("PSOrderList", PSOrderList);
+                return "admin";
+            }
+            List<Product> products = inventoryService.getAllProduct();
+            model.addAttribute("products", products);
+            return "customer";
+        }
+        return "403";
+    }
+
     @PostMapping("/user")
     public String loginForm(@ModelAttribute Employee user, Model model, HttpServletRequest request) {
         Employee target = userService.getByAuth(user);
@@ -53,6 +77,7 @@ public class MainController {
             }
             List<Product> products = inventoryService.getAllProduct();
             model.addAttribute("products", products);
+            request.getSession().setAttribute("cart", new CustomerOrder());
             return "customer";
         }
         return "403";

@@ -170,4 +170,44 @@ public class InventoryService {
     public List<Product> getAllProduct() {
         return products;
     }
+
+    public Item getItemByName(String name) {
+        Item item = null;
+        if (name.equalsIgnoreCase("controller")) {
+            item = controllerDao.getOneAvailableItem();
+        }
+        if (name.equalsIgnoreCase("eldenring")) {
+            item = eldenRingDao.getOneAvailableItem();
+        }
+        if (name.equalsIgnoreCase("monito")) {
+            item = monitorDao.getOneAvailableItem();
+        }
+        if (name.equalsIgnoreCase("persona5")) {
+            item = persona5Dao.getOneAvailableItem();
+        }
+        if (name.equalsIgnoreCase("playstation")) {
+            item = persona5Dao.getOneAvailableItem();
+        }
+        return item;
+    }
+
+    public void addItem(CustomerOrder cart, Item item) {
+        if (item instanceof Controller) {
+            cart.setControllerNo(cart.getControllerNo() + 1);
+            return;
+        }
+        if (item instanceof EldenRing) {
+            cart.setEldenringNo(cart.getEldenringNo() + 1);
+            return;
+        }
+        if (item instanceof Monitor) {
+            cart.setMonitorNo(cart.getMonitorNo() + 1);
+            return;
+        }
+        if (item instanceof Persona5) {
+            cart.setPersona5No(cart.getPersona5No() + 1);
+            return;
+        }
+        cart.setPlaystationNo(cart.getPlaystationNo() + 1);
+    }
 }
