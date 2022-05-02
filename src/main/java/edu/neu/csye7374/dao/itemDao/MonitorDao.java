@@ -12,11 +12,11 @@ import java.util.List;
 public interface MonitorDao extends JpaRepository<Monitor, Integer> {
     @Query("select c from Monitor c where c.status = :status")
     List<Monitor> findAllByStatus(@Param("status") int status);
-    @Query(value = "select * from Monitor c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
+    @Query(value = "select * from monitor c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
     Monitor getOneAvailableItem();
-    @Query(value = "select * from Monitor c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
+    @Query(value = "select * from monitor c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Monitor> getAvailableItems(@Param("num") int num);
 
-    @Query(value = "select * from Monitor c where c.status = 0", nativeQuery = true)
+    @Query(value = "select * from monitor c where c.status = 0", nativeQuery = true)
     List<Monitor> getAllItems();
 }
