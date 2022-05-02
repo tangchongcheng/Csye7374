@@ -1,6 +1,5 @@
 package edu.neu.csye7374.dao.itemDao;
 
-import edu.neu.csye7374.entity.item.Controller;
 import edu.neu.csye7374.entity.item.Monitor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +16,7 @@ public interface MonitorDao extends JpaRepository<Monitor, Integer> {
     Monitor getOneAvailableItem();
     @Query(value = "select * from Monitor c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Monitor> getAvailableItems(@Param("num") int num);
+
+    @Query(value = "select * from Monitor c where c.status = 0", nativeQuery = true)
+    List<Monitor> getAllItems();
 }

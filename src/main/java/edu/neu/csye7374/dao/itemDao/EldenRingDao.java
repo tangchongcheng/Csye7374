@@ -1,6 +1,5 @@
 package edu.neu.csye7374.dao.itemDao;
 
-import edu.neu.csye7374.entity.item.Controller;
 import edu.neu.csye7374.entity.item.EldenRing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +16,7 @@ public interface EldenRingDao extends JpaRepository<EldenRing, Integer> {
     EldenRing getOneAvailableItem();
     @Query(value = "select * from EldenRing c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<EldenRing> getAvailableItems(@Param("num") int num);
+
+    @Query(value = "select * from EldenRing c where c.status = 0 ", nativeQuery = true)
+    List<EldenRing> getAllItems();
 }

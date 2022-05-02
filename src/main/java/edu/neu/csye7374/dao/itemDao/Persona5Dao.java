@@ -1,6 +1,5 @@
 package edu.neu.csye7374.dao.itemDao;
 
-import edu.neu.csye7374.entity.item.Controller;
 import edu.neu.csye7374.entity.item.Persona5;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +16,7 @@ public interface Persona5Dao extends JpaRepository<Persona5, Integer> {
     Persona5 getOneAvailableItem();
     @Query(value = "select * from Persona5 c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Persona5> getAvailableItems(@Param("num") int num);
+
+    @Query(value = "select * from Persona5 c where c.status = 0", nativeQuery = true)
+    List<Persona5> getAllItems();
 }
