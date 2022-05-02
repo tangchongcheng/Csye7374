@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,7 +33,11 @@ public class CustomerController {
 
     @GetMapping("/cart")
     public String showCart(Model model, HttpSession session) {
-        model.addAttribute("customerOrder", session.getAttribute("customerOrder"));
+        List<CustomerOrder> orders = new ArrayList<>();
+        CustomerOrder customerOrder = (CustomerOrder) session.getAttribute("customerOrder");
+        orders.add(customerOrder);
+        model.addAttribute("customerOrderList", orders);
+        model.addAttribute("price", inventoryService.getEstimatedPrice(customerOrder));
         return "cart";
     }
 

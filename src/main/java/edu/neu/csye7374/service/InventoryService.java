@@ -57,6 +57,17 @@ public class InventoryService {
         return order;
     }
 
+    public double getEstimatedPrice(CustomerOrder customerOrder){
+        double controllerPrice = controllerDao.getAllItems().get(0).getPrice();
+        double eldenringPrice = eldenRingDao.getAllItems().get(0).getPrice();
+        double monitorPrice = monitorDao.getAllItems().get(0).getPrice();
+        double persona5Price = persona5Dao.getAllItems().get(0).getPrice();
+        double playstationPrice = playStationDao.getAllItems().get(0).getPrice();
+        return customerOrder.getMonitorNo()*monitorPrice + customerOrder.getPersona5No()*persona5Price +
+                customerOrder.getControllerNo()*controllerPrice + customerOrder.getPlaystationNo()*playstationPrice +
+                customerOrder.getEldenringNo()*eldenringPrice;
+    }
+
     public List<PSOrder> getOrdersByCustomerId(Integer customerId){
         return orderDao.findAllByCustomer(customerId);
     }

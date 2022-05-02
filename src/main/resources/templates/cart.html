@@ -9,7 +9,32 @@
 <div align="center">
     <h1>My Shopping Cart</h1>
     <br/><br/>
-    
+        <table border="1" cellpadding="10">
+            <thead>
+            <tr>
+                <th>Controller</th>
+                <th>Monitor</th>
+                <th>Play Station</th>
+                <th>Persona 5</th>
+                <th>Elden Ring</th>
+                <th>estimated total price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cOrder : ${customerOrderList}">
+                <td th:text="${cOrder.controllerNo}">Controller</td>
+                <td th:text="${cOrder.monitorNo}">Monitor</td>
+                <td th:text="${cOrder.playstationNo}">Play Station</td>
+                <td th:text="${cOrder.persona5No}">Persona 5</td>
+                <td th:text="${cOrder.eldenringNo}">Elden Ring</td>
+                <td th:text="${price}">estimated total price</td>
+                <!--                <a th:href="@{'/add/' + ${product.desc}}">Add</a>-->
+                <!--                &nbsp;&nbsp;&nbsp;-->
+                <!--                <a th:href="/@{'/delete/' + ${product.id}}">Delete</a>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a th:href="@{'/place/' + '${customerOrder.Id}'}">Place Order</a>
 </div>
