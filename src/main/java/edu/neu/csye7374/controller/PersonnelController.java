@@ -24,7 +24,9 @@ public class PersonnelController {
     }
 
     @GetMapping("/signout")
-    public String signOut() {
+    public String signOut(HttpSession session) {
+        session.removeAttribute("user");
+        session.removeAttribute("cart");
         return "redirect:/";
     }
 }

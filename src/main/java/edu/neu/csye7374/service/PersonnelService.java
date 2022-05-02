@@ -90,4 +90,18 @@ public class PersonnelService {
         }
         return result;
     }
+
+    public List<String> getAvailableEmployeeName(){
+        List<Employee> employees = employeeDao.findAll();
+        List<String> result = new ArrayList<>();
+        for(Employee e:employees){
+            if(e.getRole().equals("Employee"))
+                result.add(e.getName());
+        }
+        return result;
+    }
+
+    public Employee getEmployeeByName(String name){
+        return employeeDao.getEmployeeByName(name);
+    }
 }
