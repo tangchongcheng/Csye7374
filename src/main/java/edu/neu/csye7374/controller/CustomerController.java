@@ -3,6 +3,7 @@ package edu.neu.csye7374.controller;
 import edu.neu.csye7374.entity.CustomerOrder;
 import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.entity.item.Item;
+import edu.neu.csye7374.service.CustomerService;
 import edu.neu.csye7374.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    CustomerService customerService;
 
 //    @GetMapping("/customer")
 //    public String itemList(Model model) {
@@ -46,6 +49,7 @@ public class CustomerController {
         model.addAttribute("customerOrder", customerOrder);
         model.addAttribute("customerOrderList", orders);
         model.addAttribute("price", inventoryService.getEstimatedPrice(customerOrder));
+        customerService.saveOrder(customerOrder);
         return "cart";
     }
 
