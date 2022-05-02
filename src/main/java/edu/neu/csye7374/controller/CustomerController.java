@@ -25,13 +25,6 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-//    @GetMapping("/customer")
-//    public String itemList(Model model) {
-//        List<Product> products = inventoryService.getAllProduct();
-//        model.addAttribute("products", products);
-//        return "customer";
-//    }
-
     @RequestMapping("/add/{name}")
     public String addProduct(@PathVariable(name = "name") String name, HttpServletRequest request) {
         Item item = inventoryService.getItemByName(name);

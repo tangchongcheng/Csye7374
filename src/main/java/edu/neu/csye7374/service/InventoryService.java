@@ -15,8 +15,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,7 +51,8 @@ public class InventoryService {
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
         PSOrder order = cartFacade.getPSOrder();
-        order.setOrderId(orderDao.getMaxOrderId()+1);
+        Integer maxID = customerDao.getMaxOrderId() == null ? 0 : customerDao.getMaxOrderId() + 1;
+        order.setOrderId(maxID);
         orderDao.save(order);
         return order;
     }
@@ -146,8 +145,7 @@ public class InventoryService {
         return cartFacade;
     }
 
-    @PostConstruct
-    void init() {
+    private void init() {
         products = new ArrayList<>();
         System.out.println("item entity size is: " + itemEntities.size());
         for (Item itemEntity : itemEntities) {
@@ -193,6 +191,7 @@ public class InventoryService {
     }
 
     public List<Product> getAllProduct() {
+        this.init();
         return products;
     }
 

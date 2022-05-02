@@ -22,4 +22,7 @@ public interface ControllerDao extends JpaRepository<Controller, Integer> {
 
     @Query(value = "select * from controller c where c.status = 0", nativeQuery = true)
     List<Controller> getAllItems();
+
+    @Query(value = "select * from Controller c where c.guid = :guid", nativeQuery = true)
+    Controller getByGuid(String guid);
 }

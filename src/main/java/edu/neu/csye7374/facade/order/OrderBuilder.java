@@ -13,6 +13,7 @@ public class OrderBuilder {
         PSOrder.setEmployeeId(0);
         long createTime = System.currentTimeMillis();
         PSOrder.setCreateTime(createTime);
+        PSOrder.setArriveTime(createTime + 604800000);
         PSOrder.setCustomerId(customerId);
         return this;
     }
