@@ -9,6 +9,9 @@ import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.entity.item.*;
 import edu.neu.csye7374.facade.CartFacade;
+import edu.neu.csye7374.service.priceStrategy.Calculator;
+import edu.neu.csye7374.service.priceStrategy.HalfStrategy;
+import edu.neu.csye7374.service.priceStrategy.NormalStrategy;
 import edu.neu.csye7374.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,15 +60,30 @@ public class InventoryService {
         return order;
     }
 
-    public double getEstimatedPrice(CustomerOrder customerOrder){
+    public double getNormalEstimatedPrice(CustomerOrder customerOrder){
         double controllerPrice = controllerDao.getAllItems().get(0).getPrice();
         double eldenringPrice = eldenRingDao.getAllItems().get(0).getPrice();
         double monitorPrice = monitorDao.getAllItems().get(0).getPrice();
         double persona5Price = persona5Dao.getAllItems().get(0).getPrice();
         double playstationPrice = playStationDao.getAllItems().get(0).getPrice();
-        return customerOrder.getMonitorNo()*monitorPrice + customerOrder.getPersona5No()*persona5Price +
-                customerOrder.getControllerNo()*controllerPrice + customerOrder.getPlaystationNo()*playstationPrice +
-                customerOrder.getEldenringNo()*eldenringPrice;
+        Calculator calculator = new Calculator(controllerPrice,eldenringPrice,monitorPrice,persona5Price,playstationPrice,
+                customerOrder.getControllerNo(), customerOrder.getEldenringNo(), customerOrder.getMonitorNo(),
+                customerOrder.getPersona5No(), customerOrder.getPlaystationNo());
+        calculator.setStrategy(new NormalStrategy());
+        return calculator.run();
+    }
+
+    public double getHalfEstimatedPrice(CustomerOrder customerOrder){
+        double controllerPrice = controllerDao.getAllItems().get(0).getPrice();
+        double eldenringPrice = eldenRingDao.getAllItems().get(0).getPrice();
+        double monitorPrice = monitorDao.getAllItems().get(0).getPrice();
+        double persona5Price = persona5Dao.getAllItems().get(0).getPrice();
+        double playstationPrice = playStationDao.getAllItems().get(0).getPrice();
+        Calculator calculator = new Calculator(controllerPrice,eldenringPrice,monitorPrice,persona5Price,playstationPrice,
+                customerOrder.getControllerNo(), customerOrder.getEldenringNo(), customerOrder.getMonitorNo(),
+                customerOrder.getPersona5No(), customerOrder.getPlaystationNo());
+        calculator.setStrategy(new HalfStrategy());
+        return calculator.run();
     }
 
     public List<PSOrder> getOrdersByCustomerId(Integer customerId){
