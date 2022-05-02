@@ -37,8 +37,7 @@ public class InventoryController {
 
     @PostMapping("/choose/{orderId}")
     public String chooseDelivery(@ModelAttribute Employee employee,@PathVariable(name = "orderId") int orderId, Model model){
-        String name = employee.getName();
-        Integer employeeId = personnelService.getEmployeeByName(name).getId();
+        Integer employeeId = personnelService.getEmployeeByName(employee.getName()).getId();
         inventoryService.distributeOrderToEmployee(orderId, employeeId);
         return "success";
     }
