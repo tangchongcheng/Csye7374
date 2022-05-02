@@ -20,4 +20,6 @@ public interface ControllerDao extends JpaRepository<Controller, Integer> {
     @Query(value = "select * from Controller c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Controller> getAvailableItems(@Param("num") int num);
 
+    @Query(value = "select * from Controller c where c.status = 0", nativeQuery = true)
+    List<Controller> getAllItems();
 }

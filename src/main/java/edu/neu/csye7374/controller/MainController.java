@@ -4,6 +4,7 @@ import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.service.InventoryService;
 import edu.neu.csye7374.service.PersonnelService;
 import edu.neu.csye7374.service.UserService;
+import edu.neu.csye7374.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ public class MainController {
     @GetMapping("/")
     public String loginForm(Model model) {
         model.addAttribute("user", new Employee());
-        List<String> roles = Arrays.asList("Employee", "Admin");
+        List<String> roles = Arrays.asList("Employee", "Admin", "Customer");
         model.addAttribute("roles", roles);
         return "index";
     }
@@ -44,12 +45,15 @@ public class MainController {
                 List<PSOrder> psOrders = personnelService.getOrderByIds(target.getOrderIds());
                 model.addAttribute("psOrders", psOrders);
                 return "employee";
-            }else{
+            }
+            if (target.getRole().equalsIgnoreCase("Admin")) {
                 List<PSOrder> PSOrderList = inventoryService.getAllOrders();
                 model.addAttribute("PSOrderList", PSOrderList);
                 return "admin";
             }
-
+            List<Product> products = inventoryService.getAllProduct();
+            model.addAttribute("products", products);
+            return "customer";
         }
         return "403";
     }

@@ -1,7 +1,5 @@
 package edu.neu.csye7374.dao.itemDao;
 
-import edu.neu.csye7374.entity.item.Controller;
-import edu.neu.csye7374.entity.item.EldenRing;
 import edu.neu.csye7374.entity.item.PlayStation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +14,9 @@ public interface PlayStationDao extends JpaRepository<PlayStation, Integer> {
     List<PlayStation> findAllByStatus(@Param("status") int status);
     @Query(value = "select * from PlayStation c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
     PlayStation getOneAvailableItem();
-    @Query(value = "select * from PlayStation c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
+    @Query(value = "select * from PlayStation c where c.status = 0", nativeQuery = true)
     List<PlayStation> getAvailableItems(@Param("num") int num);
 
+    @Query(value = "select * from PlayStation c where c.status = 0", nativeQuery = true)
+    List<PlayStation> getAllItems();
 }
