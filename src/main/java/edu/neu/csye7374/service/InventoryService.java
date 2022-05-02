@@ -9,9 +9,11 @@ import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.entity.item.*;
 import edu.neu.csye7374.facade.CartFacade;
+import edu.neu.csye7374.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +35,10 @@ public class InventoryService {
     OrderDao orderDao;
     @Autowired
     EmployeeDao employeeDao;
+    @Autowired
+    private List<Item> itemEntities;
 
+    private List<Product> products;
 
     public PSOrder createOrderFromCustomerOrder(String customerName){
         CustomerOrder customerOrder = customerDao.findCustomerOrderByName(customerName);
@@ -110,5 +115,55 @@ public class InventoryService {
             cartFacade.addPersona5(c);
         }
         return cartFacade;
+    }
+
+    @PostConstruct
+    void init() {
+        for (Item itemEntity : itemEntities) {
+            System.out.println(itemEntity);
+            String name = itemEntity.toString();
+            String[] packages = name.split("\\.");
+            String[] names = packages[packages.length - 1].split("@");
+            Product product = new Product();
+            String productName = names[0];
+            product.setName(productName);
+            String desc = null;
+            int stock = 0;
+            double price = 0;
+            if (productName.equalsIgnoreCase("controller")) {
+                List<Controller> availableItems = controllerDao.getAllItems();
+                stock = availableItems.size();
+                desc = availableItems.get(0).getDescription();
+                price = availableItems.get(0).getPrice();
+            } else if (productName.equalsIgnoreCase("eldenring")) {
+                List<EldenRing> availableItems = eldenRingDao.getAllItems();
+                stock = availableItems.size();
+                desc = availableItems.get(0).getDescription();
+                price = availableItems.get(0).getPrice();
+            } else if (productName.equalsIgnoreCase("monitor")) {
+                List<Monitor> availableItems = monitorDao.getAllItems();
+                stock = availableItems.size();
+                desc = availableItems.get(0).getDescription();
+                price = availableItems.get(0).getPrice();
+            } else if (productName.equalsIgnoreCase("persona5")) {
+                List<Persona5> availableItems = persona5Dao.getAllItems();
+                stock = availableItems.size();
+                desc = availableItems.get(0).getDescription();
+                price = availableItems.get(0).getPrice();
+            } else if (productName.equalsIgnoreCase("playstation")) {
+                List<PlayStation> availableItems = playStationDao.getAllItems();
+                stock = availableItems.size();
+                desc = availableItems.get(0).getDescription();
+                price = availableItems.get(0).getPrice();
+            }
+            product.setStock(stock);
+            product.setDescription(desc);
+            product.setPrice(price);
+            products.add(product);
+        }
+    }
+
+    public List<Product> getAllProduct() {
+        return products;
     }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Shopping Cart</title>
+</head>
+<body>
+<div align="center">
+    <h1>My Shopping Cart</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Product Code</th>
+            <th>Name</th>
+            <th>Price</th>
+            <!--            <th>Actions</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${cart}">
+            <td th:text="${product.code}">Product ID</td>
+            <td th:text="${product.desc}">Name</td>
+            <td th:text="${product.cost}">Price</td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <h4 th:text="'Total: ' + ${total}"></h4>
+    </div>
+    <a href="/place">Place Order</a>
+</div>
+</body>
+</html>
