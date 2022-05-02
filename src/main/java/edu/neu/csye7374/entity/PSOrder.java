@@ -25,4 +25,6 @@ public class PSOrder {
     private long intendedTime;
 
     private long arriveTime;
+
+    private int customerId;
 }

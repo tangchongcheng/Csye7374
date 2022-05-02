@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +43,8 @@ public class InventoryService {
 
     private List<Product> products;
 
-    public PSOrder createOrderFromCustomerOrder(String customerName){
-        CustomerOrder customerOrder = customerDao.findCustomerOrderByName(customerName);
+    public PSOrder createOrderFromCustomerOrderId(Integer customerOrderId){
+        CustomerOrder customerOrder = customerDao.findById(customerOrderId).orElse(null);
         if(Objects.isNull(customerOrder)) return null;
         CartFacade cartFacade = new CartFacade();
         cartFacade = addControllerBatch(customerOrder.getControllerNo(),cartFacade);
@@ -51,8 +52,31 @@ public class InventoryService {
         cartFacade = addPlayStationBatch(customerOrder.getPlaystationNo(), cartFacade);
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
-        return cartFacade.getPSOrder();
+        PSOrder order = cartFacade.getPSOrder();
+        orderDao.save(order);
+        return order;
     }
+
+    public double getEstimatedPrice(CustomerOrder customerOrder){
+        double controllerPrice = controllerDao.getAllItems().get(0).getPrice();
+        double eldenringPrice = eldenRingDao.getAllItems().get(0).getPrice();
+        double monitorPrice = monitorDao.getAllItems().get(0).getPrice();
+        double persona5Price = persona5Dao.getAllItems().get(0).getPrice();
+        double playstationPrice = playStationDao.getAllItems().get(0).getPrice();
+        return customerOrder.getMonitorNo()*monitorPrice + customerOrder.getPersona5No()*persona5Price +
+                customerOrder.getControllerNo()*controllerPrice + customerOrder.getPlaystationNo()*playstationPrice +
+                customerOrder.getEldenringNo()*eldenringPrice;
+    }
+
+    public List<PSOrder> getOrdersByCustomerId(Integer customerId){
+        return orderDao.findAllByCustomer(customerId);
+    }
+//    public void createOrderFromAllCustomerOrder(){
+//        List<CustomerOrder> orders = customerDao.findAll();
+//        for(CustomerOrder o: orders){
+//            orderDao.save(createOrderFromCustomerOrderId(o.getId()));
+//        }
+//    }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
         Employee employee = employeeDao.getById(employeeId);
