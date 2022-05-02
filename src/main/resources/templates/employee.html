@@ -28,7 +28,6 @@
             <td  th:if="${psOrder.status} == 2">Delivered</td>
             <td th:text="${#dates.format(psOrder.createTime, 'MM-dd-yyyy HH:mm:ss')}">Created Time</td>
             <td th:text="${#dates.format(psOrder.arriveTime, 'MM-dd-yyyy HH:mm:ss')}">Expected Arriving Time</td>
-            <td>
             <td th:if="${psOrder.status} != 2">
             <a th:href="@{'/delivered/' + ${psOrder.orderId}}">Mark as Delivered</a>
             </td>
@@ -37,7 +36,7 @@
         </tr>
         </tbody>
     </table>
-    <a href="/signout">Sign Out</a>
+    <br/><br/><a href="/signout">Sign Out</a>
 </div>
 </body>
 </html>

@@ -15,4 +15,7 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer> {
 
     @Query(value = "select id from Employee where status = 0", nativeQuery = true)
     List<Integer> getAvailableEmployeeId();
+
+    @Query(value = "select * from employee where name = :name", nativeQuery = true)
+    Employee getEmployeeByName(String name);
 }

@@ -20,6 +20,6 @@ public interface Persona5Dao extends JpaRepository<Persona5, Integer> {
     @Query(value = "select * from persona5 c where c.status = 0", nativeQuery = true)
     List<Persona5> getAllItems();
 
-    @Query(value = "select * from Persona5 c where c.guid = :guid", nativeQuery = true)
+    @Query(value = "select * from persona5 c where c.guid = :guid", nativeQuery = true)
     Persona5 getByGuid(String guid);
 }

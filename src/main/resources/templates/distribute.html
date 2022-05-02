@@ -35,14 +35,16 @@
         </tbody>
     </table>
     <form th:action="@{'/choose/' + ${orderId}}" method="post" th:object="${employee}">
+        <br/><br/>
         <label>Choose Employee To Deliver</label>
-        <select th:field="*{id}">
+        <select th:field="*{name}">
             <option th:each="p : ${AvailableEmployeeList}" th:value="${p}" th:text="${p}"></option>
         </select>
         <br/>
         <p><input type="submit" value="Submit" /></p>
     </form>
-    <a href="/">Sign Out</a>
+    <br/><br/><a href="/back">Back</a>
+    <br/><br/><a href="/signout">Sign Out</a>
 </div>
 </body>
 </html>

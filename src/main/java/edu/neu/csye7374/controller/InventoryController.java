@@ -30,16 +30,15 @@ public class InventoryController {
         model.addAttribute("PSOrderList",orders);
         model.addAttribute("orderId", orderId);
         model.addAttribute("employee", new Employee());
-        List<Integer> employeeList =  personnelService.getAvailableEmployeeId();
+        List<String> employeeList =  personnelService.getAvailableEmployeeName();
         model.addAttribute("AvailableEmployeeList", employeeList);
         return "distribute";
     }
 
     @PostMapping("/choose/{orderId}")
     public String chooseDelivery(@ModelAttribute Employee employee,@PathVariable(name = "orderId") int orderId, Model model){
-        System.out.println(orderId);
-        Integer employeeId = employee.getId();
-        System.out.println(employeeId);
+        String name = employee.getName();
+        Integer employeeId = personnelService.getEmployeeByName(name).getId();
         inventoryService.distributeOrderToEmployee(orderId, employeeId);
         return "success";
     }
