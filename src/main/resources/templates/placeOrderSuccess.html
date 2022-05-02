@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Successfully Placed</title>
 </head>
 <body>
-<h3>Successfully Placed! Your Order ID is: </h3>
-<span th:text="${orderId}"></span>
-<a href="/">Sign Out</a>
+<div align="center">
+    <h4 th:text="'Successfully Placed, Order ID: ' + ${orderId}"></h4>
+    <a href="/">Sign Out</a>
+</div>
+
 </body>
 </html>
