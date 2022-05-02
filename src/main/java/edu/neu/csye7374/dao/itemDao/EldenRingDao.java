@@ -19,4 +19,7 @@ public interface EldenRingDao extends JpaRepository<EldenRing, Integer> {
 
     @Query(value = "select * from elden_ring c where c.status = 0 ", nativeQuery = true)
     List<EldenRing> getAllItems();
+
+    @Query(value = "select * from elden_ring c where c.guid = :guid", nativeQuery = true)
+    EldenRing getByGuid(String guid);
 }

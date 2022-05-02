@@ -19,4 +19,7 @@ public interface MonitorDao extends JpaRepository<Monitor, Integer> {
 
     @Query(value = "select * from Monitor c where c.status = 0", nativeQuery = true)
     List<Monitor> getAllItems();
+
+    @Query(value = "select * from Monitor c where c.guid = :guid", nativeQuery = true)
+    Monitor getByGuid(String guid);
 }

@@ -19,4 +19,7 @@ public interface PlayStationDao extends JpaRepository<PlayStation, Integer> {
 
     @Query(value = "select * from play_station c where c.status = 0", nativeQuery = true)
     List<PlayStation> getAllItems();
+
+    @Query(value = "select * from play_station c where c.guid = :guid", nativeQuery = true)
+    PlayStation getByGuid(String guid);
 }
