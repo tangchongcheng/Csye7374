@@ -18,8 +18,11 @@ public class PersonnelService {
     EmployeeDao employeeDao;
 
     public List<PSOrder> getOrderByIds(String orderIds) {
-        String[] ids = orderIds.split(",");
         List<PSOrder> res = new ArrayList<>();
+        if (orderIds.isEmpty()) {
+            return res;
+        }
+        String[] ids = orderIds.split(",");
         for (String id : ids) {
             PSOrder psOrder = orderDao.getById(Integer.valueOf(id));
             res.add(psOrder);
