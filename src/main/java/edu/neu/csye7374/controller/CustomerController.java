@@ -43,7 +43,7 @@ public class CustomerController {
         orders.add(customerOrder);
         model.addAttribute("customerOrder", customerOrder);
         model.addAttribute("customerOrderList", orders);
-        model.addAttribute("price", inventoryService.getEstimatedPrice(customerOrder));
+        model.addAttribute("price", inventoryService.getNormalEstimatedPrice(customerOrder));
         return "cart";
     }
 
