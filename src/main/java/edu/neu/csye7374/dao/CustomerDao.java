@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface CustomerDao extends JpaRepository<CustomerOrder, Integer> {
     @Query("select c from CustomerOrder c where c.name=:name")
-    CustomerOrder findCustomerOrderByName(@Param("name") String name);
+    Optional<CustomerOrder> findCustomerOrderByName(@Param("name") String name);
 }
