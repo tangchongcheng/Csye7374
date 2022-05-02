@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public class InventoryService {
     EmployeeDao employeeDao;
 
 
-    public PSOrder createOrderFromCustomerOrder(Integer customerOrderId){
+    public PSOrder createOrderFromCustomerOrderId(Integer customerOrderId){
         CustomerOrder customerOrder = customerDao.findById(customerOrderId).orElse(null);
         if(Objects.isNull(customerOrder)) return null;
         CartFacade cartFacade = new CartFacade();
@@ -47,6 +48,13 @@ public class InventoryService {
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
         return cartFacade.getPSOrder();
     }
+
+//    public void createOrderFromAllCustomerOrder(){
+//        List<CustomerOrder> orders = customerDao.findAll();
+//        for(CustomerOrder o: orders){
+//            orderDao.save(createOrderFromCustomerOrderId(o.getId()));
+//        }
+//    }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
         Employee employee = employeeDao.getById(employeeId);
