@@ -2,6 +2,7 @@ package edu.neu.csye7374.controller;
 import edu.neu.csye7374.entity.CustomerOrder;
 import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
+import edu.neu.csye7374.service.CustomerService;
 import edu.neu.csye7374.service.InventoryService;
 import edu.neu.csye7374.service.PersonnelService;
 import edu.neu.csye7374.service.UserService;
@@ -28,6 +29,9 @@ public class MainController {
 
     @Autowired
     private InventoryService inventoryService;
+
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping("/")
     public String loginForm(Model model) {
@@ -70,15 +74,19 @@ public class MainController {
                 model.addAttribute("psOrders", psOrders);
                 return "employee";
             }
-            if (target.getRole().equalsIgnoreCase("Admin")) {
+            else if (target.getRole().equalsIgnoreCase("Admin")) {
                 List<PSOrder> PSOrderList = inventoryService.getAllOrders();
                 model.addAttribute("PSOrderList", PSOrderList);
                 return "admin";
+            }else{
+                List<Product> products = inventoryService.getAllProduct();
+                model.addAttribute("products", products);
+                CustomerOrder customerOrder = new CustomerOrder();
+                customerOrder.setCustomerId(target.getId());
+                customerOrder.setId(customerService.getMaxOrderId()+1);
+                request.getSession().setAttribute("cart", customerOrder);
+                return "customer";
             }
-            List<Product> products = inventoryService.getAllProduct();
-            model.addAttribute("products", products);
-            request.getSession().setAttribute("cart", new CustomerOrder());
-            return "customer";
         }
         return "403";
     }

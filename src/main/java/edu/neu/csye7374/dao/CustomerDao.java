@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface CustomerDao extends JpaRepository<CustomerOrder, Integer> {
     @Query("select c from CustomerOrder c where c.name=:name")
     Optional<CustomerOrder> findCustomerOrderByName(@Param("name") String name);
+    @Query(value = "select max(id) from customer_order", nativeQuery = true)
+    Integer getMaxOrderId();
 }

@@ -28,6 +28,9 @@ public class CustomerService {
     public CustomerOrder saveOrder(CustomerOrder order){
         return customerDao.save(order);
     }
+    public Integer getMaxOrderId(){
+        return customerDao.getMaxOrderId();
+    }
 
 //    public List<Integer> getAllCustomerOrderId(){
 //        List<Integer> list = new ArrayList<>();
