@@ -12,12 +12,12 @@ import java.util.List;
 public interface Persona5Dao extends JpaRepository<Persona5, Integer> {
     @Query("select c from Persona5 c where c.status = :status")
     List<Persona5> findAllByStatus(@Param("status") int status);
-    @Query(value = "select * from Persona5 c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
+    @Query(value = "select * from persona5 c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
     Persona5 getOneAvailableItem();
-    @Query(value = "select * from Persona5 c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
+    @Query(value = "select * from persona5 c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Persona5> getAvailableItems(@Param("num") int num);
 
-    @Query(value = "select * from Persona5 c where c.status = 0", nativeQuery = true)
+    @Query(value = "select * from persona5 c where c.status = 0", nativeQuery = true)
     List<Persona5> getAllItems();
 
     @Query(value = "select * from Persona5 c where c.guid = :guid", nativeQuery = true)

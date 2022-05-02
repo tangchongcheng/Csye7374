@@ -14,13 +14,13 @@ public interface ControllerDao extends JpaRepository<Controller, Integer> {
     @Query("select c from Controller c where c.status = :status")
     List<Controller> findAllByStatus(@Param("status") int status);
 
-    @Query(value = "select * from Controller c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
+    @Query(value = "select * from controller c where c.status = 0 order by id asc limit 1 ", nativeQuery = true)
     Controller getOneAvailableItem();
 
-    @Query(value = "select * from Controller c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
+    @Query(value = "select * from controller c where c.status = 0 order by id asc limit :num ", nativeQuery = true)
     List<Controller> getAvailableItems(@Param("num") int num);
 
-    @Query(value = "select * from Controller c where c.status = 0", nativeQuery = true)
+    @Query(value = "select * from controller c where c.status = 0", nativeQuery = true)
     List<Controller> getAllItems();
 
     @Query(value = "select * from Controller c where c.guid = :guid", nativeQuery = true)

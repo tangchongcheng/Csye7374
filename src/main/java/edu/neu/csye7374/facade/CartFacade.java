@@ -13,10 +13,10 @@ public class CartFacade {
     PSOrder PSOrder;
     OrderBuilder orderBuilder;
 
-    public CartFacade(){
+    public CartFacade(Integer customerId){
         cart = new Cart();
         orderBuilder = new OrderBuilder();
-        PSOrder = orderBuilder.init().setItems(cart).build();
+        PSOrder = orderBuilder.init(customerId).setItems(cart).build();
     }
 
     public void addController(Controller controller){

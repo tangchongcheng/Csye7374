@@ -25,6 +25,13 @@ public class CustomerService {
         return customerDao.save(order);
     }
 
+    public CustomerOrder saveOrder(CustomerOrder order){
+        return customerDao.save(order);
+    }
+    public Integer getMaxOrderId(){
+        return customerDao.getMaxOrderId();
+    }
+
 //    public List<Integer> getAllCustomerOrderId(){
 //        List<Integer> list = new ArrayList<>();
 //        List<CustomerOrder> orders = customerDao.findAll();

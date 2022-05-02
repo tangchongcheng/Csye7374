@@ -85,7 +85,7 @@ public class PersonnelService {
         List<Employee> employees = employeeDao.findAll();
         List<Integer> result = new ArrayList<>();
         for(Employee e:employees){
-            if(e.getStatus()==0)
+            if(e.getRole().equals("Employee"))
             result.add(e.getId());
         }
         return result;

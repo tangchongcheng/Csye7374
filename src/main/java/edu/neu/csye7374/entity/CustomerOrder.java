@@ -12,6 +12,7 @@ public class CustomerOrder {
     @Id
     private int id;
     private String name;
+    private int customerId;
     @Column(nullable = false, columnDefinition = "int default 0")
     private int controllerNo;
     @Column(nullable = false, columnDefinition = "int default 0")
