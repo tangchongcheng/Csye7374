@@ -24,11 +24,10 @@ public class CustomerController {
 //        return "customer";
 //    }
 
-//    @RequestMapping("/add")
-//    public String showEditProductPage(@PathVariable(name = "guid") String guid) {
-//
-//        return "redirect:/";
-//    }
+    @RequestMapping("/add")
+    public String showEditProductPage(Model model) {
+        return "redirect:/";
+    }
 //
 //    @GetMapping("/cart")
 //    public String showCart(Model model) {

@@ -1,39 +1,53 @@
 package edu.neu.csye7374.controller;
 
+import edu.neu.csye7374.entity.Employee;
 import edu.neu.csye7374.entity.PSOrder;
 import edu.neu.csye7374.service.InventoryService;
+import edu.neu.csye7374.service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class InventoryController {
     @Autowired
     InventoryService inventoryService;
+    @Autowired
+    PersonnelService personnelService;
 
-    @GetMapping("/admin")
-    public String inventoryHomePage(Model model) {
-        List<PSOrder> PSOrderList = inventoryService.getAllOrders();
-        model.addAttribute("orderList", PSOrderList);
-        return "admin";
-    }
 
-    @GetMapping("/distribute")
-    public String distributePage(Model model) {
-        List<PSOrder> ordersToDeliver = inventoryService.getOrdersToDeliver();
-        model.addAttribute("ordersToDeliver", ordersToDeliver);
+    @GetMapping("/distribute/{orderId}")
+    public String updateOrderStatus(@PathVariable(name = "orderId") int orderId, Model model) {
+        List<PSOrder> orders = new ArrayList<>();
+        orders.add(inventoryService.getOrderById(orderId));
+        model.addAttribute("PSOrderList",orders);
+        model.addAttribute("orderId", orderId);
+        model.addAttribute("employee", new Employee());
+        List<Integer> employeeList =  personnelService.getAvailableEmployeeId();
+        model.addAttribute("AvailableEmployeeList", employeeList);
         return "distribute";
     }
 
-    @PostMapping("/distribute")
-    public String distributeOrders(Model model) {
-        Integer orderId = (Integer) model.getAttribute("orderId");
-        Integer employeeId = (Integer) model.getAttribute("employeeId");
+    @PostMapping("/choose/{orderId}")
+    public String chooseDelivery(@ModelAttribute Employee employee,@PathVariable(name = "orderId") int orderId, Model model){
+        System.out.println(orderId);
+        Integer employeeId = employee.getId();
+        System.out.println(employeeId);
         inventoryService.distributeOrderToEmployee(orderId, employeeId);
+        return "success";
+    }
+
+    @GetMapping("/back")
+    public String goBack(Model model){
+        List<PSOrder> PSOrderList = inventoryService.getAllOrders();
+        model.addAttribute("PSOrderList", PSOrderList);
         return "admin";
     }
 

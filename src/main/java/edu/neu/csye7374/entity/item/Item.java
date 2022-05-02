@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-@Component
 public class Item {
     private int orderId;
     private String name;

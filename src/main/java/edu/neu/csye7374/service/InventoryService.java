@@ -12,8 +12,10 @@ import edu.neu.csye7374.facade.CartFacade;
 import edu.neu.csye7374.vo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,14 +55,13 @@ public class InventoryService {
     }
 
     public void distributeOrderToEmployee(Integer orderId, Integer employeeId){
-        Employee employee = employeeDao.findById(employeeId).orElse(null);
-        PSOrder PSOrder = orderDao.findById(orderId).orElse(null);
-        if(Objects.isNull(employee) || Objects.isNull(PSOrder)) return;
+        Employee employee = employeeDao.getById(employeeId);
+        PSOrder PSOrder = orderDao.getById(orderId);
 //        long intendedTime = System.currentTimeMillis();
 //        PSOrder.setIntendedTime(intendedTime);
         PSOrder.setEmployeeId(employeeId);
         String orderIds = employee.getOrderIds();
-        if (orderIds == null) {
+        if (StringUtils.isEmpty(orderIds)) {
             orderIds = "" + orderId;
         } else {
             orderIds = orderIds + "," + orderId;
@@ -75,6 +76,9 @@ public class InventoryService {
 
     public List<PSOrder> getAllOrders(){
         return orderDao.findAll();
+    }
+    public PSOrder getOrderById(Integer id){
+        return orderDao.getById(id);
     }
 
     public List<PSOrder> getOrdersToDeliver(){
@@ -119,13 +123,13 @@ public class InventoryService {
 
     @PostConstruct
     void init() {
+        products = new ArrayList<>();
+        System.out.println("item entity size is: " + itemEntities.size());
         for (Item itemEntity : itemEntities) {
-            System.out.println(itemEntity);
-            String name = itemEntity.toString();
-            String[] packages = name.split("\\.");
-            String[] names = packages[packages.length - 1].split("@");
+            System.out.println("itemEntity is: " + itemEntity);
+            String productName = itemEntity.getClass().getSimpleName();
+            System.out.println("name is: " + productName);
             Product product = new Product();
-            String productName = names[0];
             product.setName(productName);
             String desc = null;
             int stock = 0;

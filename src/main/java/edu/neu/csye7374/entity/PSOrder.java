@@ -14,6 +14,8 @@ public class PSOrder {
 
     private String orderedItems;
 
+    private double price;
+
     private int employeeId;
 
     private int status;

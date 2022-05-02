@@ -47,6 +47,8 @@ public class MainController {
                 return "employee";
             }
             if (target.getRole().equalsIgnoreCase("Admin")) {
+                List<PSOrder> PSOrderList = inventoryService.getAllOrders();
+                model.addAttribute("PSOrderList", PSOrderList);
                 return "admin";
             }
             List<Product> products = inventoryService.getAllProduct();
