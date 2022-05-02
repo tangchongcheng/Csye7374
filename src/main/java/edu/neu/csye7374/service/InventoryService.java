@@ -52,9 +52,14 @@ public class InventoryService {
         cartFacade = addPlayStationBatch(customerOrder.getPlaystationNo(), cartFacade);
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
-        return cartFacade.getPSOrder();
+        PSOrder order = cartFacade.getPSOrder();
+        orderDao.save(order);
+        return order;
     }
 
+    public List<PSOrder> getOrdersByCustomerId(Integer customerId){
+        return orderDao.findAllByCustomer(customerId);
+    }
 //    public void createOrderFromAllCustomerOrder(){
 //        List<CustomerOrder> orders = customerDao.findAll();
 //        for(CustomerOrder o: orders){

@@ -12,4 +12,6 @@ import java.util.List;
 public interface OrderDao extends JpaRepository<PSOrder, Integer> {
     @Query("select c from PSOrder c where c.status = :status")
     List<PSOrder> findAllByStatus(@Param("status") int status);
+    @Query("select c from PSOrder c where c.customerId = :customerId")
+    List<PSOrder> findAllByCustomer(@Param("customerId") int customerId);
 }

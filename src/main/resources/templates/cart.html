@@ -9,27 +9,9 @@
 <div align="center">
     <h1>My Shopping Cart</h1>
     <br/><br/>
-    <table border="1" cellpadding="10">
-        <thead>
-        <tr>
-            <th>Product Code</th>
-            <th>Name</th>
-            <th>Price</th>
-            <!--            <th>Actions</th>-->
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${cart}">
-            <td th:text="${product.code}">Product ID</td>
-            <td th:text="${product.desc}">Name</td>
-            <td th:text="${product.cost}">Price</td>
-        </tr>
-        </tbody>
-    </table>
-    <div>
-        <h4 th:text="'Total: ' + ${total}"></h4>
-    </div>
-    <a href="/place">Place Order</a>
+    
+
+    <a th:href="@{'/place/' + '${customerOrder.Id}'}">Place Order</a>
 </div>
 </body>
 </html>
