@@ -46,13 +46,14 @@ public class InventoryService {
     public PSOrder createOrderFromCustomerOrderId(Integer customerOrderId){
         CustomerOrder customerOrder = customerDao.findById(customerOrderId).orElse(null);
         if(Objects.isNull(customerOrder)) return null;
-        CartFacade cartFacade = new CartFacade();
+        CartFacade cartFacade = new CartFacade(customerOrder.getCustomerId());
         cartFacade = addControllerBatch(customerOrder.getControllerNo(),cartFacade);
         cartFacade = addMonitorBatch(customerOrder.getMonitorNo(), cartFacade);
         cartFacade = addPlayStationBatch(customerOrder.getPlaystationNo(), cartFacade);
         cartFacade = addEldenRingBatch(customerOrder.getEldenringNo(), cartFacade);
         cartFacade = addPersona5Batch(customerOrder.getPersona5No(), cartFacade);
         PSOrder order = cartFacade.getPSOrder();
+        order.setOrderId(orderDao.getMaxOrderId()+1);
         orderDao.save(order);
         return order;
     }

@@ -14,4 +14,6 @@ public interface OrderDao extends JpaRepository<PSOrder, Integer> {
     List<PSOrder> findAllByStatus(@Param("status") int status);
     @Query("select c from PSOrder c where c.customerId = :customerId")
     List<PSOrder> findAllByCustomer(@Param("customerId") int customerId);
+    @Query(value = "select max(order_id) from psorder", nativeQuery = true)
+    Integer getMaxOrderId();
 }

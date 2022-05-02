@@ -7,12 +7,13 @@ public class OrderBuilder {
 
     PSOrder PSOrder;
 
-    public OrderBuilder init(){
+    public OrderBuilder init(Integer customerId){
         this.PSOrder = new PSOrder();
         PSOrder.setStatus(0);
         PSOrder.setEmployeeId(0);
         long createTime = System.currentTimeMillis();
         PSOrder.setCreateTime(createTime);
+        PSOrder.setCustomerId(customerId);
         return this;
     }
 
